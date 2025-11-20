@@ -1,9 +1,7 @@
 package models
 
 import (
-	"time"
-
-	"gorm.io/gorm"
+"gorm.io/gorm"
 )
 
 type PaymentStatus string
@@ -27,19 +25,16 @@ type Payment struct {
 	Amount  int           `json:"amount"`
 	Status  PaymentStatus `json:"-"`
 	Method  PaymentMethod `json:"-"`
-	Paid_at time.Time     `json:"paid_at"`
 }
 
 type CreatePaymentRequest struct {
 	Amount  int       `json:"amount" binding:"required"`
 	Status  PaymentStatus    `json:"status" binding:"required"`
 	Method  PaymentMethod    `json:"method" binding:"required"`
-	Paid_at time.Time `json:"paid_at" binding:"required"`
 }
 
 type UpdatePaymentRequest struct {
 	Amount  *int       `json:"amount"`
 	Status  *PaymentStatus    `json:"status"`
 	Method  *PaymentMethod    `json:"method"`
-	Paid_at *time.Time `json:"paid_at"`
 }
