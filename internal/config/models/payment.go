@@ -23,8 +23,8 @@ const (
 type Payment struct {
 	gorm.Model
 	Amount  int           `json:"amount"`
-	Status  PaymentStatus `json:"-"`
-	Method  PaymentMethod `json:"-"`
+	Status  PaymentStatus `json:"status"`
+	Method  PaymentMethod `json:"method"`
 }
 
 type CreatePaymentRequest struct {
