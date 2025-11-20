@@ -11,9 +11,16 @@ type User struct {
 	Default_address string `json:"default_address"`
 }
 
-type CreateUser struct {
+type CreateUserRequest struct {
 	FullName        string `json:"fullname"`
 	Email           string `json:"email"`
 	Phone           int    `json:"phone"`
 	Default_address string `json:"default_address"`
+}
+
+type UpdateUserRequest struct {
+	FullName        *string `json:"fullname"`
+	Email           *string `json:"email"`
+	Phone           *int    `json:"phone"`
+	Default_address *string `json:"default_address"`
 }
