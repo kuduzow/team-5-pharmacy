@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/kuduzow/team-5-pharmacy/internal/config"
+	"github.com/kuduzow/team-5-pharmacy/internal/config/models"
 )
 
 func main() {
@@ -14,6 +15,10 @@ func main() {
 	fmt.Println(db) // временно
 
 	// Выполняем миграции моделей
+	if err := db.AutoMigrate(&models.Medicincs{}); err != nil{
+		log.Fatalf("не удалось сделать миграции")
+	}
+	
 
 	router := gin.Default()
 
