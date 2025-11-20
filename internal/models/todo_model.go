@@ -1,3 +1,3 @@
-package models
+package todo
 
 type Todo struct{}
