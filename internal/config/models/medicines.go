@@ -7,36 +7,36 @@ type Medicine struct {
 	Name                  string  `json:"name"`
 	Description           string  `json:"description"`
 	Price                 int     `json:"price"`
-	InStock              bool    `json:"in_stock"`
-	StockQuantity        uint    `json:"stock_quantity"`
-	CategoryId           string  `json:"category_id"`
-	SubcategoryId        string  `json:"subcategory_id"`
+	InStock              bool    `json:"instock"`
+	StockQuantity        uint    `json:"stockquantity"`
+	CategoryId           string  `json:"categoryid"`
+	SubcategoryId        string  `json:"subcategoryid"`
 	Manufacturer          string  `json:"manufacturer"`
-	PrescriptionRequired bool    `json:"prescription_required"`
-	AvgRating            float64 `gorm:"-" json:"avg_raiting"`
+	PrescriptionRequired bool    `json:"prescriptionrequired"`
+	AvgRating            float64 `gorm:"-" json:"avgraiting"`
 }
 
 type CreateMedicineRequest struct {
 	Name                  string  `json:"name"`
 	Description           string  `json:"description"`
 	Price                 int     `json:"price"`
-	InStock              bool    `json:"in_stock"`
-	StockQuantity        uint    `json:"stock_quantity"`
-	CategoryId           string  `json:"category_id"`
-	SubcategoryId        string  `json:"subcategory_id"`
+	InStock              bool    `json:"instock"`
+	StockQuantity        uint    `json:"stockquantity"`
+	CategoryId           string  `json:"categoryid"`
+	SubcategoryId        string  `json:"subcategoryid"`
 	Manufacturer          string  `json:"manufacturer"`
-	PrescriptionRequired bool    `json:"prescription_required"`
-	AvgRating            float64 `gorm:"-" json:"avg_raiting"`
+	PrescriptionRequired bool    `json:"prescriptionrequired"`
+	AvgRating            float64 `gorm:"-" json:"avgraiting"`
 }
 type UpdateMedicineRequest struct {
 	Name                  *string  `json:"name"`
 	Description           *string  `json:"description"`
 	Price                 *int     `json:"price"`
-	InStock              *bool    `json:"in_stock"`
-	StockQuantity        *uint    `json:"stock_quantity"`
-	CategoryId           *string  `json:"category_id"`
-	SubcategoryId        *string  `json:"subcategory_id"`
+	InStock              *bool    `json:"instock"`
+	StockQuantity        *uint    `json:"stockquantity"`
+	CategoryId           *string  `json:"categoryid"`
+	SubcategoryId        *string  `json:"subcategoryid"`
 	Manufacturer          *string  `json:"manufacturer"`
-	PrescriptionRequired *bool    `json:"prescription_required"`
-	AvgRating            *float64 `gorm:"-" json:"avg_raiting"`
+	PrescriptionRequired *bool    `json:"prescriptionrequired"`
+	AvgRating            *float64 `gorm:"-" json:"avgraiting"`
 }
