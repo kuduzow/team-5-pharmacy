@@ -6,12 +6,18 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/kuduzow/team-5-pharmacy/internal/config"
+	"github.com/kuduzow/team-5-pharmacy/internal/config/models"
 )
 
 func main() {
 	db := config.SetUpDatabaseConnection()
 
 	fmt.Println(db) // временно
+
+	if err := db.AutoMigrate(&models.Payment{}); err != nil{
+		log.Fatalf("не удалось выполнить миграции:%v",err)
+	}
+
 
 	// Выполняем миграции моделей
 
