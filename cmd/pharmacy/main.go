@@ -15,7 +15,7 @@ func main() {
 	fmt.Println(db) // временно
 
 	// Выполняем миграции моделей
-	if err := db.AutoMigrate(&models.Medicincs{}); err != nil{
+	if err := db.AutoMigrate(&models.Medicine{}); err != nil{
 		log.Fatalf("не удалось сделать миграции")
 	}
 	
