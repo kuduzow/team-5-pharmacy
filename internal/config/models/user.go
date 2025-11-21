@@ -5,22 +5,22 @@ import "gorm.io/gorm"
 type User struct {
 	gorm.Model
 
-	FullName        string `json:"fullname"`
+	FullName        string `json:"full_name"`
 	Email           string `json:"email"`
 	Phone           int    `json:"phone"`
-	Default_address string `json:"default_address"`
+	DefaultAddress string `json:"default_address"`
 }
 
 type CreateUserRequest struct {
-	FullName        string `json:"fullname"`
+	FullName        string `json:"full_name"`
 	Email           string `json:"email"`
 	Phone           int    `json:"phone"`
-	Default_address string `json:"default_address"`
+	DefaultAddress string `json:"default_address"`
 }
 
 type UpdateUserRequest struct {
-	FullName        *string `json:"fullname"`
+	FullName        *string `json:"full_name"`
 	Email           *string `json:"email"`
 	Phone           *int    `json:"phone"`
-	Default_address *string `json:"default_address"`
+	DefaultAddress *string `json:"default_address"`
 }
