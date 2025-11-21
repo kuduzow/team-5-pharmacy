@@ -6,18 +6,21 @@ import (
 )
 
 type PaymentRepository interface{
-
+	Create(payment *models.Payment) error
+	GetById (id uint) (*models.Payment,error) 
+	Update(payment *models.Payment) error
+	Delete(id uint) error
 }
 
-type paymentRepository struct{
+type gormPaymentRepository struct{
 	db *gorm.DB
 }
 
 func NewPaymentRepository(db *gorm.DB) PaymentRepository{
-	return paymentRepository{db}
+	return &gormPaymentRepository{db:db}
 }
 
-func (r *paymentRepository) Create(payment *models.Payment) error{
+func (r *gormPaymentRepository) Create(payment *models.Payment) error{
 	if payment == nil{
 		return nil
 	}
@@ -25,7 +28,7 @@ func (r *paymentRepository) Create(payment *models.Payment) error{
 	return r.db.Create(payment).Error
 }
 
-func(r *paymentRepository) GetById (id uint) (*models.Payment,error){
+func(r *gormPaymentRepository) GetById (id uint) (*models.Payment,error){
 	var payment models.Payment
 
 	if err := r.db.First(&payment,id).Error; err != nil{
@@ -34,11 +37,15 @@ func(r *paymentRepository) GetById (id uint) (*models.Payment,error){
 	return &payment,nil
 }
 
-func(r *paymentRepository) Update(payment *models.Payment) error{
+func(r *gormPaymentRepository) Update(payment *models.Payment) error{
 	if payment == nil{
 		return nil
 	}
 	return r.db.Save(payment).Error
+}
+
+func(r *gormPaymentRepository) Delete(id uint) error{
+	return r.db.Delete(&models.Payment{},id).Error
 }
 
 	
