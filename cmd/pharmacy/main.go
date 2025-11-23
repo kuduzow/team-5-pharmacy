@@ -1,29 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
 	"github.com/kuduzow/team-5-pharmacy/internal/config"
-	"github.com/kuduzow/team-5-pharmacy/internal/config/models"
+	"github.com/kuduzow/team-5-pharmacy/internal/models"
 )
 
 func main() {
 	db := config.SetUpDatabaseConnection()
 
-	fmt.Println(db) // временно
-
-	if err := db.AutoMigrate(&models.Payment{}); err != nil{
-		log.Fatalf("не удалось выполнить миграции:%v",err)
+	if err := db.AutoMigrate(&models.Payment{}); err != nil {
+		log.Fatalf("не удалось выполнить миграции:%v", err)
 	}
-
 
 	// Выполняем миграции моделей
-	if err := db.AutoMigrate(&models.Medicine{}); err != nil{
+	if err := db.AutoMigrate(&models.Medicine{}); err != nil {
 		log.Fatalf("не удалось сделать миграции")
 	}
-	
 
 	router := gin.Default()
 
