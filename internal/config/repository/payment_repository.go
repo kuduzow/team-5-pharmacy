@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"errors"
+
 	"github.com/kuduzow/team-5-pharmacy/internal/config/models"
 	"gorm.io/gorm"
 )
@@ -22,7 +24,7 @@ func NewPaymentRepository(db *gorm.DB) PaymentRepository{
 
 func (r *gormPaymentRepository) Create(payment *models.Payment) error{
 	if payment == nil{
-		return nil
+		return errors.New("payment отсутствует")
 	}
 	
 	return r.db.Create(payment).Error
