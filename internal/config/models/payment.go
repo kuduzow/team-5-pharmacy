@@ -1,7 +1,7 @@
 package models
 
 import (
-"gorm.io/gorm"
+	"gorm.io/gorm"
 )
 
 type PaymentStatus string
@@ -22,19 +22,19 @@ const (
 
 type Payment struct {
 	gorm.Model
-	Amount  int           `json:"amount"`
-	Status  PaymentStatus `json:"status"`
-	Method  PaymentMethod `json:"method"`
+	Amount int           `json:"amount"`
+	Status PaymentStatus `json:"status"`
+	Method PaymentMethod `json:"method"`
 }
 
 type CreatePaymentRequest struct {
-	Amount  int       `json:"amount" binding:"required"`
-	Status  PaymentStatus    `json:"status" binding:"required"`
-	Method  PaymentMethod    `json:"method" binding:"required"`
+	Amount int           `json:"amount" binding:"required"`
+	Status PaymentStatus `json:"status" binding:"required"`
+	Method PaymentMethod `json:"method" binding:"required"`
 }
 
 type UpdatePaymentRequest struct {
-	Amount  *int       `json:"amount"`
-	Status  *PaymentStatus    `json:"status"`
-	Method  *PaymentMethod    `json:"method"`
+	Amount *int           `json:"amount"`
+	Status *PaymentStatus `json:"status"`
+	Method *PaymentMethod `json:"method"`
 }
