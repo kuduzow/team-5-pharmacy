@@ -3,8 +3,8 @@ package services
 import (
 	"errors"
 
-	"github.com/kuduzow/team-5-pharmacy/internal/config/repository"
 	"github.com/kuduzow/team-5-pharmacy/internal/models"
+	"github.com/kuduzow/team-5-pharmacy/internal/repository"
 	"gorm.io/gorm"
 )
 
