@@ -20,6 +20,10 @@ func main() {
 
 
 	// Выполняем миграции моделей
+	if err := db.AutoMigrate(&models.Medicine{}); err != nil{
+		log.Fatalf("не удалось сделать миграции")
+	}
+	
 
 	router := gin.Default()
 
