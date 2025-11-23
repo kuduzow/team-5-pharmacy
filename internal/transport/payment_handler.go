@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kuduzow/team-5-pharmacy/internal/config/services"
 	"github.com/kuduzow/team-5-pharmacy/internal/models"
+	services "github.com/kuduzow/team-5-pharmacy/internal/service"
 )
 
 type PaymentHandler struct {
