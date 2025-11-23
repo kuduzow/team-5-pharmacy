@@ -7,22 +7,18 @@ import (
 
 type MedicineRepository interface {
 	Create(medicine *models.Medicine) error
-	 UpdateCategoryRequest(medicine *models.Medicine) error
-	DeleteMedicines(medicine *models.Medicine) error
-	GetMedecinesRepository(medicine *models.Medicine)error
-	
+	UpdateCategoryRequest(medicine *models.Medicine) error
+	DeleteMedecines(medicine *models.Medicine) error
+	GetMedecines(medicine *models.Medicine) error
 }
 
 type gormMedicineRepository struct {
 	db *gorm.DB
 }
 
-
 func NewMedicinesRepository(db *gorm.DB) MedicineRepository {
 	return &gormMedicineRepository{db: db}
 }
-
-
 
 func (r *gormMedicineRepository) Create(medicine *models.Medicine) error {
 	if medicine == nil {
@@ -38,14 +34,14 @@ func (r *gormMedicineRepository) UpdateCategoryRequest(medicine *models.Medicine
 	}
 	return r.db.Save(medicine).Error
 }
-func (r *gormMedicineRepository) DeleteMedicines(medicine *models.Medicine) error {
+func (r *gormMedicineRepository) DeleteMedecines(medicine *models.Medicine) error {
 	if medicine == nil {
 
 		return nil
 	}
 	return r.db.Delete(medicine).Error
 }
-func (r *gormMedicineRepository) GetMedecinesRepository(medicine *models.Medicine) error {
+func (r *gormMedicineRepository) GetMedecines(medicine *models.Medicine) error {
 	if medicine == nil {
 
 		return nil
@@ -53,7 +49,7 @@ func (r *gormMedicineRepository) GetMedecinesRepository(medicine *models.Medicin
 	return r.db.First(medicine).Error
 }
 func (r *gormMedicineRepository) Exists(id uint) (bool, error) {
-	var count int64 
+	var count int64
 	err := r.db.
 		Model(&models.Medicine{}).
 		Where("id = ?", id).
