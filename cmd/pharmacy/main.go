@@ -21,6 +21,12 @@ func main() {
 	}
 
 	router := gin.Default()
+	// reviewHandler := handlers.NewReviewHandler(db)
+
+	// router.POST("/reviews", reviewHandler.Create)
+	// router.GET("/medicines/:id/reviews", reviewHandler.GetByMedicineID)
+	// router.PATCH("/reviews/:id", reviewHandler.Update)
+	// router.DELETE("/reviews/:id", reviewHandler.Delete)
 
 	// регистрация роутов
 
