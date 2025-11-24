@@ -88,10 +88,12 @@ func (h *ReviewHandler) Delete(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "deleted"})
 }
 
-handler := transport.NewReviewHandler(reviewService)
+func (h *ReviewHandler) RegisterRoutes(r *gin.Engine) {
 
-router.POST("/reviews", handler.Create)
-router.GET("/reviews/:id", handler.GetByID)
-router.PATCH("/reviews/:id", handler.Update)
-router.DELETE("/reviews/:id", handler.Delete)
+reviews := r.Group("/reviews")
 
+reviews.POST("", h.Create)
+reviews.GET("/:id", h.GetByID)
+reviews.PATCH("/:id", h.Update)
+reviews.DELETE("/:id", h.Delete)
+}
