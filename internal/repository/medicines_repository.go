@@ -8,8 +8,8 @@ import (
 type MedicineRepository interface {
 	Create(medicine *models.Medicine) error
 	UpdateCategoryRequest(medicine *models.Medicine) error
-	DeleteMedecines(medicine *models.Medicine) error
-	GetMedecines(medicine *models.Medicine) error
+	DeleteMedecines(id uint) error
+	GetMedecinesById(id uint ) (*models.Medicine,error)
 }
 
 type gormMedicineRepository struct {
@@ -34,19 +34,22 @@ func (r *gormMedicineRepository) UpdateCategoryRequest(medicine *models.Medicine
 	}
 	return r.db.Save(medicine).Error
 }
-func (r *gormMedicineRepository) DeleteMedecines(medicine *models.Medicine) error {
-	if medicine == nil {
+func (r *gormMedicineRepository) DeleteMedecines(id uint) error {
+if err:=r.db.Delete(&models.Medicine{},id).Error;err!=nil{
+	return err
 
-		return nil
-	}
-	return r.db.Delete(medicine).Error
 }
-func (r *gormMedicineRepository) GetMedecines(medicine *models.Medicine) error {
-	if medicine == nil {
-
-		return nil
+return nil
 	}
-	return r.db.First(medicine).Error
+
+
+func (r *gormMedicineRepository) GetMedecinesById(id uint ) (*models.Medicine,error) {
+var med *models.Medicine
+	if err :=  r.db.First(&med,id).Error; err != nil{
+
+	}
+	return med, nil
+
 }
 func (r *gormMedicineRepository) Exists(id uint) (bool, error) {
 	var count int64
