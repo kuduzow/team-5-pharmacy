@@ -6,8 +6,8 @@ import (
 )
 
 type CategoryRepository interface{
-	CreateCategory(category *models.CreateCategoryRequest) error
-	UpdateCategoryRequest(category *models.UpdateCategoryRequest) error
+	CreateCategory(category *models.Category) error
+	UpdateCategory(category *models.Category) error
 	GetById(id uint) (*models.Category,error)
 	Delete(id uint) error
 }
@@ -20,11 +20,11 @@ func NewCategoryRepository (db *gorm.DB) CategoryRepository{
 	return &gormCaregoryRepository{db:db}
 }
 
-func(r *gormCaregoryRepository) CreateCategory(category *models.CreateCategoryRequest) error{
+func(r *gormCaregoryRepository) CreateCategory(category *models.Category) error{
 	return r.db.Create(category).Error
 }
 
-func (r *gormCaregoryRepository) UpdateCategoryRequest(category *models.UpdateCategoryRequest) error{
+func (r *gormCaregoryRepository) UpdateCategory(category *models.Category) error{
 	if category == nil{
 		return nil
 	}

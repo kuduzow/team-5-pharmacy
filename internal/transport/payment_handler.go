@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/kuduzow/team-5-pharmacy/internal/models"
-	services "github.com/kuduzow/team-5-pharmacy/internal/service"
+	"github.com/kuduzow/team-5-pharmacy/internal/services"
 )
 
 type PaymentHandler struct {
