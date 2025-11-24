@@ -10,6 +10,7 @@ type MedicineRepository interface {
 	 UpdateCategoryRequest(medicine *models.Medicine) error
 	DeleteMedicines(medicine *models.Medicine) error
 	GetMedecinesRepository(medicine *models.Medicine)error
+	
 }
 
 type gormMedicineRepository struct {
@@ -52,9 +53,7 @@ func (r *gormMedicineRepository) GetMedecinesRepository(medicine *models.Medicin
 	return r.db.First(medicine).Error
 }
 func (r *gormMedicineRepository) Exists(id uint) (bool, error) {
-	var count int64 // сюда сохраним количество найденных записей
-
-	// SELECT COUNT(*) FROM groups WHERE id = ?
+	var count int64 
 	err := r.db.
 		Model(&models.Medicine{}).
 		Where("id = ?", id).
