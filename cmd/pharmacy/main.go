@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -11,18 +10,15 @@ import (
 
 func main() {
 	db := config.SetUpDatabaseConnection()
-	if db == nil {
-		log.Fatal("Не удалось подключиться к базе данных")
+
+	if err := db.AutoMigrate(&models.Payment{}); err != nil {
+		log.Fatalf("не удалось выполнить миграции:%v", err)
 	}
-	fmt.Println(db) // временно
 
 	// Выполняем миграции моделей
-	// AutoMigrate (создаст tables)
-	if err := db.AutoMigrate(&models.Review{}); err != nil {
-		log.Fatal("migrate:", err)
+	if err := db.AutoMigrate(&models.Medicine{}); err != nil {
+		log.Fatalf("не удалось сделать миграции")
 	}
-
-	fmt.Println("DB migrated")
 
 	router := gin.Default()
 	// reviewHandler := handlers.NewReviewHandler(db)
