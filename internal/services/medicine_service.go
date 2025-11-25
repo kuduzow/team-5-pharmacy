@@ -13,7 +13,7 @@ var (
 )
 type MedicineService interface {
 	CreateMedicine(req models.CreateMedicineRequest) (*models.Medicine, error)
-	 UpdateMedicine(id uint,req models.UpdateMedicineRequest) (*models.Medicine,error)
+	 UpdateMedicine(id uint, req *models.UpdateMedicineRequest) (*models.Medicine,error)
 	GetMedecinesById(id uint) (*models.Medicine, error)
 	 DeleteMedecineById(id uint )error
 }
@@ -54,9 +54,9 @@ func (m *medicineService) validateMedicineCreate(req *models.CreateMedicineReque
 	}
 	return nil
 }
-func (m *medicineService) UpdateMedicine(id uint ,req models.UpdateMedicineRequest) (*models.Medicine, error) {
+func (m *medicineService) UpdateMedicine(id uint ,req *models.UpdateMedicineRequest) (*models.Medicine, error) {
 
-	if err:= m.applyMedicinesValidate(&req);err!=nil{
+	if err:= m.applyMedicinesValidate(req);err!=nil{
 		return nil,err
 	}
 	medicine := models.Medicine{
