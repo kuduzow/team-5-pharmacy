@@ -17,6 +17,7 @@ type MedicineRepository interface {
 	DeleteMedecines(id uint) error
 	GetMedecinesById(id uint ) (*models.Medicine,error)
 	List(filter MedicinesFilter) ([]models.Medicine, error) 
+	Exists(id uint) (bool, error)
 }
 
 type gormMedicineRepository struct {
@@ -51,11 +52,11 @@ return nil
 
 
 func (r *gormMedicineRepository) GetMedecinesById(id uint ) (*models.Medicine,error) {
-var med *models.Medicine
+var med models.Medicine
 	if err :=  r.db.First(&med,id).Error; err != nil{
-
+		return nil,err
 	}
-	return med, nil
+	return &med, nil
 
 }
 func (r *gormMedicineRepository) Exists(id uint) (bool, error) {
@@ -82,7 +83,7 @@ func(r *gormMedicineRepository) List(filter MedicinesFilter) ([]models.Medicine,
 	}
 
 	if filter.SubcategoryId != nil{
-		query = query.Where("category_id = ?",*filter.SubcategoryId)
+		query = query.Where("subcategory_id = ?",*filter.SubcategoryId)
 	}
 
 	if filter.InStock != nil{

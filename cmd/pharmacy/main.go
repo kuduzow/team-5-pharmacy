@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/kuduzow/team-5-pharmacy/internal/config"
@@ -30,6 +31,7 @@ func main() {
 	paymentRepo := repository.NewPaymentRepository(db)
 	reviewRepo := repository.NewReviewRepository(db)
 	userRepo := repository.NewUserRepository(db)
+	medicineRepo := repository.NewMedicinesRepository(db) 
 
 	// Инициализация сервисов
 	categoryService := services.NewCategoryService(categoryRepo)
@@ -37,15 +39,21 @@ func main() {
 	paymentService := services.NewPaymentService(paymentRepo)
 	reviewService := services.NewReviewService(reviewRepo)
 	userService := services.NewUserService(userRepo)
+	medicineService := services.NewMedicineService(medicineRepo)
 
 	router := gin.Default()
 
 	transport.RegisterRoutes(router, categoryService, subcategoryService, paymentService, reviewService, userService)
+	transport.NewHandlerMedicine(medicineService).RegisterRoutes(router)
 	router.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(200, "Hello")
 	})
 
-	if err := router.Run(); err != nil {
-		log.Fatalf("не удалось запустить HTTP-сервер: %v", err)
-	}
+	port := os.Getenv("PORT")
+    if port == "" {
+        port = "8081" // поменяй на "8081", если 8080 занят
+    }
+    if err := router.Run(":" + port); err != nil {
+        log.Fatalf("не удалось запустить HTTP-сервер: %v", err)
+    }
 }
