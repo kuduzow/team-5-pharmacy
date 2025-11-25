@@ -11,18 +11,13 @@ import (
 func main() {
 	db := config.SetUpDatabaseConnection()
 
-	if err := db.AutoMigrate(&models.Payment{}); err != nil {
-		log.Fatalf("не удалось выполнить миграции:%v", err)
-	}
-
-	if err := db.AutoMigrate(&models.Payment{}); err != nil{
-		log.Fatalf("не удалось выполнить миграции:%v",err)
-	}
-
-
-	// Выполняем миграции моделей
-	if err := db.AutoMigrate(&models.Medicine{}); err != nil {
-		log.Fatalf("не удалось сделать миграции")
+	if err := db.AutoMigrate(
+		&models.Category{},
+		&models.Subcategory{},
+		&models.Medicine{},
+		&models.Payment{},
+	); err != nil {
+		log.Fatalf("не удалось выполнить миграции: %v", err)
 	}
 
 	router := gin.Default()
