@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/kuduzow/team-5-pharmacy/internal/config/models"
+	"github.com/kuduzow/team-5-pharmacy/internal/models"
 	"gorm.io/gorm"
 )
 
