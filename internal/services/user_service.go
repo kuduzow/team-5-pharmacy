@@ -19,7 +19,7 @@ type UserService interface {
 
 	UpdateUser(id uint, req models.UpdateUserRequest) (*models.User, error)
 
-	//DeleteUser(id uint) error
+	DeleteUser(id uint) error
 }
 
 type userService struct {
