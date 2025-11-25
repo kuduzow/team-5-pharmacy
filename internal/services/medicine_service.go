@@ -16,6 +16,8 @@ type MedicineService interface {
 	 UpdateMedicine(id uint, req *models.UpdateMedicineRequest) (*models.Medicine,error)
 	GetMedecinesById(id uint) (*models.Medicine, error)
 	 DeleteMedecineById(id uint )error
+	 List(filter repository.MedicinesFilter) ([]models.Medicine, error)
+	 
 }
 type medicineService struct {
 	repo repository.MedicineRepository
@@ -100,7 +102,7 @@ func (m *medicineService) GetMedecinesById(id uint) (*models.Medicine, error){
 }
 
 
-	func (m *medicineService) DeleteMedecineById(id uint) error {
+func (m *medicineService) DeleteMedecineById(id uint) error {
 	if _, err := m.repo.GetMedecinesById(id); err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return ErrMedicinetNotFound
@@ -111,4 +113,8 @@ func (m *medicineService) GetMedecinesById(id uint) (*models.Medicine, error){
 		return err
 	}
 	return nil
+}
+
+func (m *medicineService) List(filter repository.MedicinesFilter) ([]models.Medicine, error) {
+	return m.repo.List(filter)
 }

@@ -52,7 +52,7 @@ func (h *UserHandler) Create(c *gin.Context) {
 func (h *UserHandler) Get(c *gin.Context) {
 	idstr := c.Param("id")
 
-	id, err := strconv.ParseInt(idstr, 10, 64)
+	id, err := strconv.ParseUint(idstr, 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "некорректный идентификатор"})
 		return

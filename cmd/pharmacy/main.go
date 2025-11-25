@@ -29,26 +29,21 @@ func main() {
 	subcategoryRepo := repository.NewSubcategoryRepository(db)
 	paymentRepo := repository.NewPaymentRepository(db)
 	reviewRepo := repository.NewReviewRepository(db)
+	userRepo := repository.NewUserRepository(db)
 
 	// Инициализация сервисов
 	categoryService := services.NewCategoryService(categoryRepo)
 	subcategoryService := services.NewSubcategoryService(subcategoryRepo)
 	paymentService := services.NewPaymentService(paymentRepo)
 	reviewService := services.NewReviewService(reviewRepo)
-
-	// Инициализация хэндлеров
-	categoryHandler := transport.NewCategoryHandler(categoryService)
-	subcategoryHandler := transport.NewSubcategoryHandler(subcategoryService)
-	paymentHandler := transport.NewPaymentHandler(paymentService)
-	reviewHandler := transport.NewReviewHandler(reviewService)
+	userService := services.NewUserService(userRepo)
 
 	router := gin.Default()
 
-	// Регистрация роутов
-	categoryHandler.RegisterRoutes(router)
-	subcategoryHandler.RegisterRoutes(router)
-	paymentHandler.RegisterRoutes(router)
-	reviewHandler.RegisterRoutes(router)
+	transport.RegisterRoutes(router, categoryService, subcategoryService, paymentService, reviewService, userService)
+	router.GET("/", func(ctx *gin.Context) {
+		ctx.JSON(200, "Hello")
+	})
 
 	if err := router.Run(); err != nil {
 		log.Fatalf("не удалось запустить HTTP-сервер: %v", err)
