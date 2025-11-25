@@ -21,8 +21,8 @@ func NewPaymentHandler(service services.PaymentService) *PaymentHandler {
 func (h *PaymentHandler) RegisterRoutes(r *gin.Engine) {
 	payments := r.Group("/payments")
 	{
-		payments.GET("", h.Create)
-		payments.PATCH("", h.Update)
+		payments.POST("", h.Create)
+		payments.PATCH("/:id", h.Update)
 		payments.DELETE("/:id", h.Delete)
 	}
 }
@@ -83,4 +83,21 @@ func (h *PaymentHandler) Delete(c *gin.Context) {
 		}
 	}
 	c.Status(http.StatusOK)
+}
+
+func(h *PaymentHandler) GetByID(c *gin.Context){
+	idStr := c.Param("id")
+
+	id, err := strconv.ParseUint(idStr,10,64)
+
+	if err != nil{
+		c.JSON(http.StatusBadRequest,gin.H{"error":err.Error()})
+	}
+
+	category, err := h.service.GetPaymentByID(uint(id))
+
+	if err != nil{
+		c.JSON(http.StatusBadRequest,gin.H{"error":err.Error()})
+	}
+	c.JSON(http.StatusOK,category)
 }

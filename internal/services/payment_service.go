@@ -143,3 +143,4 @@ func (r *paymentService) GetPaymentByID(id uint) (*models.Payment, error) {
 
 	return payment, nil
 }
+
