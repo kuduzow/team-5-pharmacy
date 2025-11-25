@@ -17,6 +17,20 @@ func NewSubcategoryHandler(s services.SubcategoryService) *SubcategoryHandler {
 	return &SubcategoryHandler{service: s}
 }
 
+func (h *SubcategoryHandler) RegisterRoutes(r *gin.Engine) {
+    subs := r.Group("/subcategories")
+	{
+		subs.PATCH("/:id", h.UpdateSub)
+		subs.DELETE("/:id", h.DeleteSub)
+
+	}
+}
+
+// RegisterNestedRoutes вешает маршруты под /categories
+func (h *SubcategoryHandler) RegisterNestedRoutes(categories *gin.RouterGroup) {
+	categories.POST("/:id/subcategories", h.CreateSub)
+	categories.GET("/:id/subcategories", h.GetSuBByID)
+}
 
 func (h *SubcategoryHandler) CreateSub(c *gin.Context) {
 	var req models.CreateSubcategoryRequest

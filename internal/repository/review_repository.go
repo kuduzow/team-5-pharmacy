@@ -19,6 +19,10 @@ type gormReviewRepository struct {
 	db *gorm.DB
 }
 
+func NewReviewRepository(db *gorm.DB) ReviewRepository {
+	return &gormReviewRepository{db: db}
+}
+
 func (r *gormReviewRepository) Create(review *models.Review) error {
 	return r.db.Create(review).Error
 }

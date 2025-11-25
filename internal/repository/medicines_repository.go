@@ -16,6 +16,7 @@ type MedicineRepository interface {
 	UpdateCategoryRequest(medicine *models.Medicine) error
 	DeleteMedecines(id uint) error
 	GetMedecinesById(id uint ) (*models.Medicine,error)
+	List(filter MedicinesFilter) ([]models.Medicine, error) 
 }
 
 type gormMedicineRepository struct {

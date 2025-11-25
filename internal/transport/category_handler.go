@@ -12,11 +12,21 @@ import (
 
 type CategoryHandler struct {
 	service services.CategoryService
-    subcats *SubcategoryHandler
 }
 
-func NewCategoryHandler(service services.CategoryService, subcats *SubcategoryHandler) *CategoryHandler {
-	return &CategoryHandler{service: service, subcats: subcats}
+func NewCategoryHandler(service services.CategoryService) *CategoryHandler {
+	return &CategoryHandler{service: service}
+}
+
+func (h *CategoryHandler) RegisterRoutes(r *gin.Engine) {
+	categories := r.Group("/categories")
+	{
+		categories.POST("", h.Create)
+		categories.GET("/:id", h.GetByID)
+		categories.PATCH("/:id", h.Update)
+		categories.DELETE("/:id", h.Delete)
+
+	}
 }
 
 func (h *CategoryHandler) Create(c *gin.Context) {
@@ -103,21 +113,3 @@ func (h *CategoryHandler) Delete(c *gin.Context) {
 
 	c.Status(http.StatusOK)
 }
-
-func (h *CategoryHandler) RegisterRoutes(r *gin.Engine) {
-	categories := r.Group("/categories")
-	{
-		categories.POST("", h.Create)
-		categories.GET("/:id", h.GetByID)
-		categories.PATCH("/:id", h.Update)
-		categories.DELETE("/:id", h.Delete)
-       
-        categories.POST("/subcategories",h.subcats.CreateSub)
-        categories.GET("/:id/subcategories", h.subcats.ListSubByCategory)
-        categories.PATCH("/subcategories/:id",h.subcats.UpdateSub)
-        categories.DELETE("/subcategories/:id",h.subcats.DeleteSub)
-
-       
-	}
-}
-

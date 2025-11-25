@@ -4,6 +4,7 @@ import "gorm.io/gorm"
 
 type Medicine struct {
 	gorm.Model
+
 	Name                 string  `json:"name"`
 	Description          string  `json:"description"`
 	Price                int     `json:"price"`
@@ -13,7 +14,7 @@ type Medicine struct {
 	SubcategoryId        uint    `json:"subcategory_id"`
 	Manufacturer         string  `json:"manufacturer"`
 	PrescriptionRequired bool    `json:"prescription_required"`
-	AvgRating            float64 `gorm:"-" json:"avg_raiting"`
+	AvgRating            float64 `gorm:"-" json:"avg_rating"`
 }
 
 type CreateMedicineRequest struct {
@@ -25,9 +26,10 @@ type CreateMedicineRequest struct {
 	CategoryId           uint    `json:"category_id"`
 	SubcategoryId        uint    `json:"subcategory_id"`
 	Manufacturer         string  `json:"manufacturer"`
-	PrescriptionRequired bool    `json:"prescriptionr_equired"`
-	AvgRating            float64 `gorm:"-" json:"avg_raiting"`
+	PrescriptionRequired bool    `json:"prescription_required"`
+	AvgRating            float64 `gorm:"-" json:"avg_rating"`
 }
+
 type UpdateMedicineRequest struct {
 	Name                 *string  `json:"name"`
 	Description          *string  `json:"description"`
@@ -38,5 +40,5 @@ type UpdateMedicineRequest struct {
 	SubcategoryId        *uint    `json:"subcategory_id"`
 	Manufacturer         *string  `json:"manufacturer"`
 	PrescriptionRequired *bool    `json:"prescription_required"`
-	AvgRating            *float64 `gorm:"-" json:"avgraiting"`
+	AvgRating            *float64 `gorm:"-" json:"avg_rating"`
 }
