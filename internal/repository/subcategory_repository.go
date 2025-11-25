@@ -42,9 +42,9 @@ func (r *gormSubcategoryRepository) Delete(id uint) error {
 }
 
 func (r *gormSubcategoryRepository) ListByCategoryID(categoryID uint) ([]models.Subcategory, error) {
-	var subcategories []models.Subcategory
-	if err := r.db.Where("category_id = ?", categoryID).Find(&subcategories).Error; err != nil {
-		return nil, err
-	}
-	return subcategories, nil
+    var subs []models.Subcategory
+    if err := r.db.Where("category_id = ?", categoryID).Find(&subs).Error; err != nil {
+        return nil, err
+    }
+    return subs, nil
 }
