@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var( 
+var (
 	ErrUserNotFound = errors.New("Пользователь не найден")
 )
 
@@ -26,25 +26,23 @@ type userService struct {
 	users repository.UserRepository
 }
 
-
-
 func NewUserService(users repository.UserRepository) UserService {
-	return &userService{users : users}
+	return &userService{users: users}
 }
 
-func(s *userService) validateUserCreate(req *models.CreateUserRequest) error {
-	if req.FullName == ""{
+func (s *userService) validateUserCreate(req *models.CreateUserRequest) error {
+	if req.FullName == "" {
 		return errors.New("имя не может быть пустым")
 	}
 
-	if req.Phone == ""{
+	if req.Phone == "" {
 		return errors.New("телефон не может быть пустым")
 	}
 
-	if req.Email == ""{
+	if req.Email == "" {
 		return errors.New("емаил не может пустым")
 	}
-	if req.DefaultAddress == ""{
+	if req.DefaultAddress == "" {
 		return errors.New("адрес доставки не может быть пустым")
 	}
 	return nil
@@ -80,7 +78,7 @@ func (s *userService) GetUserByID(id uint) (*models.User, error) {
 
 func (s *userService) UpdateUser(id uint, req models.UpdateUserRequest) (*models.User, error) {
 
-	user,err := s.users.GetByID(id)
+	user, err := s.users.GetByID(id)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, ErrUserNotFound
@@ -95,32 +93,31 @@ func (s *userService) UpdateUser(id uint, req models.UpdateUserRequest) (*models
 	return user, nil
 }
 
-func(s *userService) applyUserUpdate(req models.UpdateUserRequest) error{
-	if *req.FullName == ""{
+func (s *userService) applyUserUpdate(req models.UpdateUserRequest) error {
+	if *req.FullName == "" {
 		return errors.New("имя не может быть пустым")
 	}
 
-	if *req.Phone == ""{
+	if *req.Phone == "" {
 		return errors.New("телефон не может быть пустым")
 	}
 
-	if *req.Email == ""{
+	if *req.Email == "" {
 		return errors.New("емаил не может пустым")
 	}
-	if *req.DefaultAddress == ""{
+	if *req.DefaultAddress == "" {
 		return errors.New("адрес доставки не может быть пустым")
 	}
 	return nil
 }
 
-
 func (s *userService) DeleteUser(id uint) error {
 
-	if _,err := s.users.GetByID(id); err != nil {
+	if _, err := s.users.GetByID(id); err != nil {
 
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return ErrUserNotFound
-		} 
+		}
 		return err
 	}
 	return s.users.Delete(id)
