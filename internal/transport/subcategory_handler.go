@@ -18,17 +18,21 @@ func NewSubcategoryHandler(s services.SubcategoryService) *SubcategoryHandler {
 }
 
 func (h *SubcategoryHandler) RegisterRoutes(r *gin.Engine) {
-	subcats := r.Group("/subcategories")
+    subs := r.Group("/subcategories")
 	{
-		subcats.POST("", h.Create)
-		subcats.GET("/:id", h.GetByID)
-		subcats.PUT("/:id", h.Update)
-		subcats.DELETE("/:id", h.Delete)
-		subcats.GET("/category/:category_id", h.ListByCategory)
+		subs.PATCH("/:id", h.UpdateSub)
+		subs.DELETE("/:id", h.DeleteSub)
+
 	}
 }
 
-func (h *SubcategoryHandler) Create(c *gin.Context) {
+// RegisterNestedRoutes вешает маршруты под /categories
+func (h *SubcategoryHandler) RegisterNestedRoutes(categories *gin.RouterGroup) {
+	categories.POST("/:id/subcategories", h.CreateSub)
+	categories.GET("/:id/subcategories", h.GetSuBByID)
+}
+
+func (h *SubcategoryHandler) CreateSub(c *gin.Context) {
 	var req models.CreateSubcategoryRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -42,7 +46,7 @@ func (h *SubcategoryHandler) Create(c *gin.Context) {
 	c.JSON(http.StatusOK, subcat)
 }
 
-func (h *SubcategoryHandler) GetByID(c *gin.Context) {
+func (h *SubcategoryHandler) GetSuBByID(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	subcat, err := h.service.GetSubcategoryByID(uint(id))
 	if err != nil {
@@ -52,7 +56,7 @@ func (h *SubcategoryHandler) GetByID(c *gin.Context) {
 	c.JSON(http.StatusOK, subcat)
 }
 
-func (h *SubcategoryHandler) Update(c *gin.Context) {
+func (h *SubcategoryHandler) UpdateSub(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	var req models.UpdateSubcategoryRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -67,7 +71,7 @@ func (h *SubcategoryHandler) Update(c *gin.Context) {
 	c.JSON(http.StatusOK, subcat)
 }
 
-func (h *SubcategoryHandler) Delete(c *gin.Context) {
+func (h *SubcategoryHandler) DeleteSub(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	if err := h.service.DeleteSubcategory(uint(id)); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -76,7 +80,7 @@ func (h *SubcategoryHandler) Delete(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "subcategory deleted"})
 }
 
-func (h *SubcategoryHandler) ListByCategory(c *gin.Context) {
+func (h *SubcategoryHandler) ListSubByCategory(c *gin.Context) {
 	cabIDStr := c.Param("category_id")
 
 	id, err := strconv.ParseUint(cabIDStr, 10, 64)
