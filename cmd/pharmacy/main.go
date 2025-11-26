@@ -31,7 +31,7 @@ func main() {
 	paymentRepo := repository.NewPaymentRepository(db)
 	reviewRepo := repository.NewReviewRepository(db)
 	userRepo := repository.NewUserRepository(db)
-	medicineRepo := repository.NewMedicinesRepository(db) 
+	medicineRepo := repository.NewMedicinesRepository(db)
 
 	// Инициализация сервисов
 	categoryService := services.NewCategoryService(categoryRepo)
@@ -50,10 +50,10 @@ func main() {
 	})
 
 	port := os.Getenv("PORT")
-    if port == "" {
-        port = "8081" // поменяй на "8081", если 8080 занят
-    }
-    if err := router.Run(":" + port); err != nil {
-        log.Fatalf("не удалось запустить HTTP-сервер: %v", err)
-    }
+	if port == "" {
+		port = "8081" // поменяй на "8081", если 8080 занят
+	}
+	if err := router.Run(":" + port); err != nil {
+		log.Fatalf("не удалось запустить HTTP-сервер: %v", err)
+	}
 }
