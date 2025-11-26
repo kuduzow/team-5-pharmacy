@@ -21,6 +21,7 @@ func main() {
 		&models.Medicine{},
 		&models.Payment{},
 		&models.Review{},
+		&models.User{},
 	); err != nil {
 		log.Fatalf("не удалось выполнить миграции: %v", err)
 	}
