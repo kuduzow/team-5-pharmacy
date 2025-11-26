@@ -24,6 +24,7 @@ func (h *PaymentHandler) RegisterRoutes(r *gin.Engine) {
 		payments.POST("", h.Create)
 		payments.PATCH("/:id", h.Update)
 		payments.DELETE("/:id", h.Delete)
+		payments.GET("/:id", h.GetByID)
 	}
 }
 
