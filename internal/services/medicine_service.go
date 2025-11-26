@@ -61,7 +61,7 @@ func (m *medicineService) validateMedicineCreate(req *models.CreateMedicineReque
 	}
 	return nil
 }
-// ...existing code...
+
 func (m *medicineService) UpdateMedicine(id uint, req *models.UpdateMedicineRequest) (*models.Medicine, error) {
     if req == nil {
         return m.GetMedecinesById(id)
@@ -101,7 +101,7 @@ func (m *medicineService) applyMedicinesValidate(req *models.UpdateMedicineReque
     if req.Price != nil && *req.Price <= 0 {
         return errors.New("цена должна быть положительной")
     }
-    // Разрешаем 0 на складе (иначе нельзя иметь in_stock=false)
+   
     if req.StockQuantity != nil && *req.StockQuantity < 0 {
         return errors.New("количество не должно быть отрицательным")
     }

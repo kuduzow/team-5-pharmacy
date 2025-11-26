@@ -86,8 +86,8 @@ func (h *UserHandler) Update(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	user, err1 := h.service.UpdateUser(uint(id), req)
-	if err1 != nil {
+	user, err := h.service.UpdateUser(uint(id), req)
+	if err != nil {
 		if errors.Is(err, services.ErrUserNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 			return

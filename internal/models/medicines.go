@@ -8,7 +8,7 @@ type Medicine struct {
 	Description          string  `json:"description"`
 	Price                int     `json:"price"`
 	InStock              bool    `json:"in_stock"`
-	StockQuantity        uint    `json:"stock_quantity"`
+	StockQuantity        int    `json:"stock_quantity"`
 	CategoryId           uint    `json:"category_id"`
 	SubcategoryId        uint    `json:"subcategory_id"`
 	Manufacturer         string  `json:"manufacturer"`
@@ -21,7 +21,7 @@ type CreateMedicineRequest struct {
 	Description          string  `json:"description"`
 	Price                int     `json:"price" binding:"required,gt=0"`
 	InStock              bool    `json:"in_stock"`
-	StockQuantity        uint    `json:"stock_quantity"`
+	StockQuantity        int    `json:"stock_quantity"`
 	CategoryId           uint    `json:"category_id" binding:"required"`
 	SubcategoryId        uint    `json:"subcategory_id" binding:"required"`
 	Manufacturer         string  `json:"manufacturer"`
@@ -34,7 +34,7 @@ type UpdateMedicineRequest struct {
 	Description          *string  `json:"description"`
 	Price                *int     `json:"price"`
 	InStock              *bool    `json:"in_stock"`
-	StockQuantity        *uint    `json:"stock_quantity"`
+	StockQuantity        *int    `json:"stock_quantity"`
 	CategoryId           *uint    `json:"category_id"`
 	SubcategoryId        *uint    `json:"subcategory_id"`
 	Manufacturer         *string  `json:"manufacturer"`
