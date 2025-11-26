@@ -18,13 +18,13 @@ type Medicine struct {
 }
 
 type CreateMedicineRequest struct {
-	Name                 string  `json:"name"`
+	Name                 string  `json:"name" binding:"required"`
 	Description          string  `json:"description"`
-	Price                int     `json:"price"`
+	Price                int     `json:"price" binding:"required,gt=0"`
 	InStock              bool    `json:"in_stock"`
 	StockQuantity        uint    `json:"stock_quantity"`
-	CategoryId           uint    `json:"category_id"`
-	SubcategoryId        uint    `json:"subcategory_id"`
+	CategoryId           uint    `json:"category_id" binding:"required"`
+	SubcategoryId        uint    `json:"subcategory_id" binding:"required"`
 	Manufacturer         string  `json:"manufacturer"`
 	PrescriptionRequired bool    `json:"prescription_required"`
 	AvgRating            float64 `gorm:"-" json:"avg_rating"`

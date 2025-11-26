@@ -10,7 +10,7 @@ type Subcategory struct {
 
 type CreateSubcategoryRequest struct {
 	Name       string `json:"name" binding:"required"`
-	CategoryID uint   `json:"category_id" binding:"required"`
+	CategoryID uint   `json:"-"`
 }
 
 type UpdateSubcategoryRequest struct {
