@@ -10,7 +10,7 @@ import (
 )
 
 func SetUpDatabaseConnection() *gorm.DB {
-	err := godotenv.Load("../../.env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		panic(err)
 	}
@@ -23,7 +23,7 @@ func SetUpDatabaseConnection() *gorm.DB {
 
 	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v", dbHost, dbUser, dbPass, dbName, dbPort)
 
-	fmt.Println("-----------------------------")
+	fmt.Println("-----------------------------", dsn)
 	db, err := gorm.Open(postgres.New(postgres.Config{
 		DSN:                  dsn,
 		PreferSimpleProtocol: true,
